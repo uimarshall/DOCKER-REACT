@@ -14,5 +14,5 @@ before_install:
 
 # Tell travis how to run the test suite- the real essence of travis
 script:
-    - docker run uimarshall/docker-react npm run test -- --coverage
+    - docker run -e CI=true uimarshall/docker-react npm run test
            
