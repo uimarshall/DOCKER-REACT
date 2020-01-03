@@ -1,7 +1,9 @@
 # We need to tell travis we need a super user permission to execute this build
 # Anytime we use docker we need a super user permission.
+
+
+sudo:required
 language: generic
-os: windows
 services:
     # Tell travis you need a copy of docker to run and Travis will install it
     - docker
