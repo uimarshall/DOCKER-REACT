@@ -7,9 +7,10 @@ services:
     - docker
 
 before_install:
+
     # At this stage we spell out stuffs we need to do b4 out tests&deployment
     # Build docker image, name of image built = 'uimarshall/docker-react'
-        - docker build -t uimarshall/docker-react -f Dockerfile.dev .
+    - docker build -t uimarshall/docker-react -f Dockerfile.dev .
 
 # Tell travis how to run the test suite- the real essence of travis
 script:
