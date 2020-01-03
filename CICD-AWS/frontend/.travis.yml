@@ -1,0 +1,16 @@
+# We need to tell travis we need a super user permission to execute this build
+# Anytime we use docker we need a super user permission.
+sudo:required
+services:
+    # Tell travis you need a copy of docker to run and Travis will install it
+    - docker
+
+before_install:
+    # At this stage we spell out stuffs we need to do b4 out tests&deployment
+    # Build docker image, name of image built = 'uimarshall/docker-react'
+        - docker build -t uimarshall/docker-react -f Dockerfile.dev .
+
+# Tell travis how to run the test suite- the real essence of travis
+script:
+    - docker run uimarshall/docker-react npm run test -- --coverage
+           
