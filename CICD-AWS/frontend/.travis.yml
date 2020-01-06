@@ -2,19 +2,34 @@
 # Anytime we use docker we need a super user permission.
 
 language: generic
-sudo:required
+sudo: required
 
 services:
-    # Tell travis you need a copy of docker to run and Travis will install it
-    - docker
+  # Tell travis you need a copy of docker to run and Travis will install it
+  - docker
 
 before_install:
-
-    # At this stage we spell out stuffs we need to do b4 out tests&deployment
-    # Build docker image, name of image built = 'uimarshall/docker-react'
-    - docker build -t uimarshall/docker-react -f Dockerfile.dev .
+  # At this stage we spell out stuffs we need to do b4 out tests&deployment
+  # Build docker image, name of image built = 'uimarshall/docker-react'
+  - docker build -t uimarshall/docker-react -f Dockerfile.dev .
 
 # Tell travis how to run the test suite- the real essence of travis
 script:
-    - docker run -e CI=true uimarshall/docker-react npm run test
-           
+  - docker run uimarshall/docker-react npm run test
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "docker-react"
+  env: "DockerReact-env"
+  # travis will copy all the files in ur github repo, zip it & deploy to AWS s3-bucket
+  #Travis will then poke at elasticbeanstalk that it just uploaded a new zip file, use it to deploy a new applicatn The bucket is like a hardrive running in AWS
+  bucket_name: "elasticbeanstalk-us-east-2-875439390791"
+  bucket_path: "docker-react"
+  #   Only deploy when we merge/push code to master
+  on:
+    branch: master
+# IAM is an AWS service that is used to manage API keys that can be used by outside services
+access_key-id: $AWS_ACCESS_KEY
+secret_access_key:
+  secure: "$AWS_SECRET_KEY"
