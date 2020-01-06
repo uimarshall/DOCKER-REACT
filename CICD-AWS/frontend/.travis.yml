@@ -1,7 +1,7 @@
 # We need to tell travis we need a super user permission to execute this build
 # Anytime we use docker we need a super user permission.
-
-language: generic
+os: windows
+language: node_js
 sudo: required
 
 services:

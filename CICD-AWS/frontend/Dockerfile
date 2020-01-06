@@ -20,6 +20,7 @@ RUN npm run build
 
 # Run Phase
 FROM nginx
+EXPOSE 80
 
 # Copy build folder from build phase to nginx container
 COPY --from=builder /app/build /usr/share/nginx/html
