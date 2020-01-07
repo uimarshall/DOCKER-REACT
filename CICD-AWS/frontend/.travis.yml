@@ -2,6 +2,8 @@
 # Anytime we use docker we need a super user permission.
 os: windows
 language: node_js
+node_js:
+  - "12"
 sudo: required
 
 services:
